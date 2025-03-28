@@ -27,12 +27,12 @@ export default EditPicture
 
 export const EditAvatar = (props: Props) => {
     return (
-        <div className='w-full aspect-square max-w-60 relative rounded-[50%] overflow-hidden border-2 m-auto'>
+        <div className='w-full aspect-square max-w-60 relative rounded-[50%] overflow-hidden border-2'>
             <div className="relative h-full">
                 {
                     props.src ?
                         < Image src={props.src} alt='avata' fill className='object-cover bg-lv-1 dark:bg-lv-19' /> :
-                        < div className='h-full bg-lv-0 dark:bg-lv-18  flex flex-col justify-center text-center text-xl'>NO PICTURE</div>
+                        < div className='h-full bg-lv-0 dark:bg-lv-18  flex flex-col justify-center text-center text-xl'></div>
                 }
             </div>
             <InsertPhotoOutlinedIcon className='absolute !w-10 !h-10 rounded-[50%] p-2  bottom-[12.5%] right-[12.5%] cursor-pointer hover:text-lv-0 hover:bg-vl-11' onClick={() => props.setPictureModal && props.setPictureModal()} />

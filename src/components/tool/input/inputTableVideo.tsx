@@ -13,7 +13,7 @@ type PropsTable = {
     sx?: string,
     exportTable: (tbl: { title: string, content: string }[]) => void
 }
-export const InputTable = (pros: PropsTable) => {
+export const InputTableVideo = (pros: PropsTable) => {
     const [_edit, set_edit] = useState<boolean>(false)
 
     const [_currentTable, set_currentTable] = useState<{ title: string, content: string }[]>([])
@@ -88,7 +88,7 @@ export const InputTable = (pros: PropsTable) => {
     return (
         <div className={`relative border border-lv-2 dark:border-lv-17 px-2 ${pros.sx ? pros.sx : ""}`}>
 
-            <div className='h-12 flex font-bold px-2'><p className='flex flex-col justify-end'>Infor</p>{_edit ? <CheckIcon className='!h-6 !w-6 mx-2 mt-auto mb-1' onClick={() => set_edit(!_edit)} /> : <EditIcon className='!h-6 !w-6 mx-2 mt-auto mb-1' onClick={() => { set_edit(!_edit) }} />}</div>
+            <div className='h-12 flex font-bold px-2'><p className='flex flex-col justify-end'>Video</p>{_edit ? <CheckIcon className='!h-6 !w-6 mx-2 mt-auto mb-1' onClick={() => set_edit(!_edit)} /> : <EditIcon className='!h-6 !w-6 mx-2 mt-auto mb-1' onClick={() => { set_edit(!_edit) }} />}</div>
 
             <div key={refresh_table}>
                 {_currentTable
@@ -104,13 +104,13 @@ export const InputTable = (pros: PropsTable) => {
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onMouseUp={(e) => e.stopPropagation()}
                                         onMouseMove={(e) => e.stopPropagation()}>
-                                        <Input sx='w-full' name="title" onChange={(v) => { set_title(v) }} value={_index === index ? _title || tbl.title : tbl.title} onFocus={() => set_index(index)} />
+                                        <Input sx='w-full' name="url" onChange={(v) => { set_title(v) }} value={_index === index ? _title || tbl.title : tbl.title} onFocus={() => set_index(index)} />
                                     </div>
                                     <div className='w-full'
                                         onMouseDown={(e) => e.stopPropagation()}
                                         onMouseUp={(e) => e.stopPropagation()}
                                         onMouseMove={(e) => e.stopPropagation()}>
-                                        <TextArea sx='w-full min-h-12' name="detail" onChange={(v) => { set_content(v) }} value={_index === index ? _content || tbl.content : tbl.content} onFocus={() => set_index(index)} />
+                                        <TextArea sx='w-full min-h-12' name="commnet" onChange={(v) => { set_content(v) }} value={_index === index ? _content || tbl.content : tbl.content} onFocus={() => set_index(index)} />
                                     </div>
                                     {_index === index ?
                                         <CheckIcon onMouseUp={(e) => e.stopPropagation()} onMouseDown={(e) => e.stopPropagation()} onMouseMove={(e) => e.stopPropagation()} className="!h-12 !w-12 p-3 cursor-pointer" onClick={(e) => { e.stopPropagation(); updateTable({ title: _title || tbl.title, content: _content || tbl.content }, index); set_title(""); set_content(""); set_index(-1) }} />
@@ -129,11 +129,11 @@ export const InputTable = (pros: PropsTable) => {
                     )}
             </div>
             <div className='flex gap-4 w-full' key={key}>
-                <Input sx='w-full' name="title" onChange={(v) => { set_title(v) }} value={_index === -1 ? _title : ""} onFocus={() => {
+                <Input sx='w-full' name="url" onChange={(v) => { set_title(v) }} value={_index === -1 ? _title : ""} onFocus={() => {
                     set_index(-1)
                     setRefresh_table(n => n + 1)
                 }} />
-                <TextArea sx='w-full' name="detail" onChange={(v) => { set_content(v) }} value={_index === -1 ? _content : ""} onFocus={() => {
+                <TextArea sx='w-full' name="comment" onChange={(v) => { set_content(v) }} value={_index === -1 ? _content : ""} onFocus={() => {
                     set_index(-1)
                     setRefresh_table(n => n + 1)
                 }} />

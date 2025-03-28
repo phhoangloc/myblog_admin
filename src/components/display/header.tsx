@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import store from '@/redux/store';
 import { setMenu } from '@/redux/reducer/MenuReduce';
@@ -12,7 +12,7 @@ import { IconDivider } from '../tool/icon/icon';
 const Header = () => {
 
     const params = useParams()
-    const toPage=useRouter()
+    const toPage = useRouter()
     const [currentUser, setCurrentUser] = useState<UserType>(store.getState().user)
 
     const update = () => {
@@ -22,11 +22,10 @@ const Header = () => {
     useEffect(() => {
         update()
     })
-
     const dropDataLogin = [
         {
             name: "Profile",
-            func: () => toPage.push("/admin/profile")
+            func: () => toPage.push("/profile")
         },
         {
             name: "Log Out",
@@ -35,27 +34,29 @@ const Header = () => {
     const dropDataLogout = [
         {
             name: "Login",
-            func: () => toPage.push("/admin/login")
+            func: () => toPage.push("/login")
         },
         {
             name: "Sign Up",
-            func: () => toPage.push("/admin/signup")
+            func: () => toPage.push("/signup")
         }
     ]
     return (
         <div className=" rounded h-12 flex text-lv-11 dark:text-lv-0  w-full top-0">
             <MenuIcon className="cursor-pointer !w-12 !h-12 p-2 opacity-75 hover:opacity-100 xl:!hidden" onClick={() => store.dispatch(setMenu(true))} />
             <div className="h-full w-full-12 xl:w-full gap-1 flex font-bold ">
-                <Image src={"/logo.png"} width={48} height={48} alt='logo' className=' p-2 hidden xl:block'/>
+                <Image src={"/logo.png"} width={48} height={48} alt='logo' className=' p-2 hidden xl:block' />
                 <div className="h-12 font-bold text-xl flex cursor-pointer">
                     <p className='h-full flex flex-col justify-center'>{params.archive ? params.archive === "pic" ? "IMAGES" : params.archive.toString().toUpperCase() : "ADMIN"}</p>
                 </div>
-                <IconDivider 
-                sx='ml-auto mr-0 cursor-pointer'
+                <IconDivider
+                    sx='ml-auto mr-0 cursor-pointer'
                     icon={
-                    currentUser?<Image src={process.env.ftp_url+currentUser.avata.name} width={36} height={36} alt='avata'/>:<PersonIcon className='!w-12 !h-12 p-2'/>
-                } data={currentUser?dropDataLogin:dropDataLogout}/>
-                
+                        currentUser && currentUser.avata ?
+                            <Image src={process.env.ftp_url + currentUser.avata.name} width={36} height={36} alt='avata' className='rounded-[50%]' /> :
+                            <PersonIcon className='!w-12 !h-12 p-2' />
+                    } data={currentUser ? dropDataLogin : dropDataLogout} />
+
             </div>
         </div>
     )

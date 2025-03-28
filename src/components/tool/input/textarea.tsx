@@ -252,7 +252,7 @@ export const TextArea = ({ onChange, name, value, type, disabled, warn, icon1, i
 
     return (
         <div className={` text-left relative mb-2 ${disabled ? "opacity-50" : ""} ${sx ? sx : ""}`}>
-            <p className={` absolute transition-all duration-300 h-max px-2  ${_focus || content !== "<p><br></p>" ? "top-0 text-sm text-lv-13 opacity-50" : "top-4"}`}
+            <p className={` absolute transition-all duration-300 h-max px-2 opacity-75  ${_focus || content !== "<p><br></p>" ? "top-0 text-sm text-lv-13 opacity-50" : "top-4"}`}
             >{name}</p>
 
             <div className={`relative z-[1] overflow-auto scroll_none pt-5 min-h-11 px-2`} onClick={() => { inputRef.current.focus(), set_focus(true) }}>

@@ -7,14 +7,14 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: "image.buoncf.jp",
         port: "",
-        pathname: "/buoncf/**"
+        pathname: "/**"
       },
     ],
   },
   env: {
     api_url: "https://buoncf.jp:4000/",
     api_url_: "http://localhost:4000/",
-    ftp_url: "https://image.buoncf.jp/buoncf/",
+    ftp_url: "https://image.buoncf.jp/myblog/",
 
   }
 };

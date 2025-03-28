@@ -13,7 +13,9 @@ export type BodyType = {
 }
 
 export const ApiLogin = async (body: { username: string, password: string }) => {
-    const result = await axios.post(process.env.api_url + "api/login", body)
+    const result = await axios.post(process.env.api_url + "api/login", body, {
+        withCredentials: true
+    })
     return result.data
 }
 

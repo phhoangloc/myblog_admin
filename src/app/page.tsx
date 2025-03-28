@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <Layout sidebar={<Menu />}>
       <div>
-        Hello world!!!
+        Dashboard
       </div>
     </Layout>
   );

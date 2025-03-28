@@ -17,10 +17,7 @@ export type BodyTypeWithPosition = {
 export const ApiCheckLogin = async () => {
     try {
         const result = await axios.get(process.env.api_url + "api/user", {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage && localStorage.token
-            },
+            withCredentials: true
         })
         return (result.data)
 
@@ -48,6 +45,7 @@ export const ApiItemUser = async ({ position, archive, hostId, search, id, slug,
                     'Content-Type': 'application/json',
                     'Authorization': localStorage && localStorage.token
                 },
+                withCredentials: true
             }
         )
         return result.data
@@ -69,6 +67,7 @@ export const ApiCreateItem = async ({ position, archive }: BodyTypeWithPosition,
                 'Content-Type': 'application/json',
                 'Authorization': localStorage && localStorage.token
             },
+            withCredentials: true
         })
     return (result.data)
 }
@@ -83,6 +82,7 @@ export const ApiUpdateItem = async ({ position, archive, id }: BodyTypeWithPosit
                 'Content-Type': 'application/json',
                 'Authorization': localStorage && localStorage.token
             },
+            withCredentials: true
         })
     return (result.data)
 }
@@ -96,6 +96,7 @@ export const ApiDeleteItem = async ({ position, archive, id }: BodyTypeWithPosit
                 'Content-Type': 'application/json',
                 'Authorization': localStorage && localStorage.token
             },
+            withCredentials: true
         })
     return (result.data)
 }
@@ -108,9 +109,11 @@ export const ApiUploadFile = async ({ position, archive, file }: BodyTypeWithPos
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': localStorage.token,
+
             },
+            withCredentials: true
         })
-        return fileUpload
+        return fileUpload.data
     }
 
 }

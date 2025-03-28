@@ -15,11 +15,11 @@ import { UploadButton } from '../button/button'
 import CloseIcon from '@mui/icons-material/Close';
 import Pagination from '../display/pagination'
 import { UserType } from '@/redux/reducer/UserReduce'
-export type ImageType={
-  id:number
-  name:string
-  archive:string
-  host:{username:string}
+export type ImageType = {
+  id: number
+  name: string
+  archive: string
+  host: { username: string }
 }
 type ImageProps = {
   data: ImageType
@@ -29,13 +29,13 @@ const ImageModalDetail = ({ data }: ImageProps) => {
   const [isCopyLink, setIsCopyLink] = useState<boolean>(false)
 
   useEffect(() => {
-    if(isCopyLink){
+    if (isCopyLink) {
       navigator.clipboard.writeText(process.env.ftp_url + data.name);
       store.dispatch(setNotice({ open: true, success: false, msg: "copied" }))
       setTimeout(() => {
         store.dispatch(setNotice({ open: false, success: false, msg: "" }))
       }, 3000)
-    } 
+    }
   }, [data.name, isCopyLink])
 
 
@@ -89,7 +89,7 @@ const ImageModal = () => {
   const [files, setFiles] = useState<FileList>()
   const [isUpload, setIsUpload] = useState<boolean>(false)
   const [page, setPage] = useState<number>(0)
-  const limit= 23
+  const limit = 23
 
   const getItems = async (p: string, a: string, skip: number | undefined, li: number | undefined) => {
     setLoading(true)
@@ -104,7 +104,7 @@ const ImageModal = () => {
   }
 
   useEffect(() => {
-    if(currentUser.position ){getItems(currentUser.position, archive, page * limit, limit)}
+    if (currentUser.position) { getItems(currentUser.position, archive, page * limit, limit) }
   }, [currentUser.position, refresh, page])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,34 +125,42 @@ const ImageModal = () => {
   }
 
   useEffect(() => {
-    if (currentAlert.value && isUpload && currentUser.position && file ) {
+    if (currentAlert.value && isUpload && currentUser.position && file) {
       const UpdateImage = async (p: string, a: string, f: File) => {
         const result = await ApiUploadFile({ position: p, archive: a, file: f })
         if (result) {
           setIsUpload(false)
-          setRefresh(r => r + 1)
+          setTimeout(() => {
+            setIsUpload(false)
+            store.dispatch(setAlert({ value: false, msg: "", open: false }))
+            setRefresh(n => n + 1)
+          }, 3000)
         }
       }
-       UpdateImage(currentUser.position, "pic", file)
+      UpdateImage(currentUser.position, "pic", file)
     }
   }, [currentAlert, currentUser, isUpload, file])
 
   useEffect(() => {
     if (currentAlert.value && isUpload && files?.length) {
-        const UpdateImage = async (p: string, a: string, f: File) => {
-            const result = await ApiUploadFile({ position: p, archive: a, file: f })
-            if (result) {
-                setIsUpload(false)
-                setRefresh(r => r + 1)
-            }
+      const UpdateImage = async (p: string, a: string, f: File) => {
+        const result = await ApiUploadFile({ position: p, archive: a, file: f })
+        if (result) {
+          setIsUpload(false)
+          setTimeout(() => {
+            setIsUpload(false)
+            store.dispatch(setAlert({ value: false, msg: "", open: false }))
+            setRefresh(n => n + 1)
+          }, 3000)
         }
-        for (let index = 0; index < files.length; index++) {
-            if(currentUser.position){
-                UpdateImage(currentUser.position, "pic", files[index])
-            }
+      }
+      for (let index = 0; index < files.length; index++) {
+        if (currentUser.position) {
+          UpdateImage(currentUser.position, "pic", files[index])
         }
+      }
     }
-}, [currentAlert, currentUser, isUpload, files, refresh])
+  }, [currentAlert, currentUser, isUpload, files, refresh])
 
   useEffect(() => {
     setRefresh(n => n + 1)
@@ -162,7 +170,7 @@ const ImageModal = () => {
     <div className='w-full dark:text-white'>
       <div className="grid grid-cols-12 gap-2">
         <div className=' relative col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2  aspect-square overflow-hidden rounded flex flex-col justify-center text-center cursor-pointer shadow-lg  bg-lv-1 dark:bg-lv-18 '>
-            <UploadButton name={loading?"UPLOADING":"UPLOAD"} onClick={(e) => { getFile(e); setFile(undefined); setFiles(undefined) }} sx='m-auto' />
+          <UploadButton name={loading ? "UPLOADING" : "UPLOAD"} onClick={(e) => { getFile(e); setFile(undefined); setFiles(undefined) }} sx='m-auto' />
         </div>
         {
           items.map((item, index) =>
@@ -205,10 +213,10 @@ export const Modal = () => {
           <ImageModal />
         </div>
       )
-    default: 
-    return(
-      <div></div>
-    )
+    default:
+      return (
+        <div></div>
+      )
   }
 
 }

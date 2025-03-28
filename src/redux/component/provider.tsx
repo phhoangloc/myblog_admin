@@ -32,7 +32,7 @@ const Provider = ({ children }: Props) => {
                 set_loading(false)
                 store.dispatch(setUser({} as UserType))
             }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             set_loading(false)
             store.dispatch(setUser({} as UserType))

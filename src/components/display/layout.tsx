@@ -28,10 +28,9 @@ const Layout = ({ children, sidebar }: Props) => {
     const login = async (data: { username: string, password: string }) => {
         const result = await ApiLogin(data)
         if (result.success) {
-            store.dispatch(setNotice({ success: result.success, msg: result.message, open: true }))
+            store.dispatch(setNotice({ success: result.success, msg: result.msg, open: true }))
             setTimeout(() => {
                 store.dispatch(setNotice({ success: result.success, msg: "", open: false }))
-                localStorage.token = "bearer " + result.result
                 store.dispatch(setRefresh())
             }, 3000)
         } else {
