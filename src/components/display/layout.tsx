@@ -42,7 +42,7 @@ const Layout = ({ children, sidebar }: Props) => {
     }
 
     return (
-        currentUser.id ?
+        currentUser?.id ?
             <div className='bg-lv-1 dark:bg-lv-19 text-black dark:text-lv-0'>
                 <div className="grid min-h-screen m-auto grid-cols-12 gap-2 p-2">
                     <div className={`fixed top-0 left-0 h-full  ${currentMenu ? "w-screen" : "w-0"} transition-all duration-300 delay-500 xl:w-full xl:col-span-2  xl:relative xl:h-auto z-10 `}>

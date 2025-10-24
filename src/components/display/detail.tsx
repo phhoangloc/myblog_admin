@@ -33,7 +33,9 @@ type ItemType = {
     createdAt: Date,
     updateDate: Date,
     category: { id: string, name: string }
-    avata: { id: string, name: string }
+    avata: { id: string, name: string },
+    keyword: string,
+    description: string
 }
 
 type ItemBodyType = {
@@ -76,6 +78,8 @@ export const EditDetailbySlug = ({ archive, slug }: Props) => {
     const [_createdDate, set_createdDate] = useState<Date>()
     const [_updateDate, set_updateDate] = useState<Date>()
     const [_video, set_video] = useState<string>("")
+    const [_keyword, set_keyword] = useState<string>("")
+    const [_description, set_description] = useState<string>("")
 
 
     const body = {
@@ -86,7 +90,9 @@ export const EditDetailbySlug = ({ archive, slug }: Props) => {
         infor: _infor || undefined,
         content: _newContent || _content,
         updateDate: new Date(),
-        video: _video || undefined
+        video: _video || undefined,
+        keyword: _keyword || undefined,
+        description: _description || undefined,
     }
 
     const toPage = useRouter()
@@ -116,6 +122,8 @@ export const EditDetailbySlug = ({ archive, slug }: Props) => {
             set_video(_item.video)
             set_createdDate(_item.createdAt)
             set_updateDate(_item.updateDate)
+            set_keyword(_item.keyword)
+            set_description(_item.description)
         }
 
     }, [_item])
@@ -232,6 +240,13 @@ export const EditDetailbySlug = ({ archive, slug }: Props) => {
                             {/* {archive !== "page" ? <Input name="video link" onChange={(v) => set_video(v)} value={_video} /> : null} */}
                             {archive !== "page" ? <InputTableVideo table={_video ? JSON.parse(_video) : []} exportTable={tbl => set_video(JSON.stringify(tbl))} /> : null}
                             {archive !== "page" ? <InputTable table={_infor ? JSON.parse(_infor) : []} exportTable={tbl => set_infor(JSON.stringify(tbl))} /> : null}
+                            {archive !== "page" ?
+                                <div className={`relative border border-lv-2 dark:border-lv-17 px-2`}>
+                                    <Input name="keyword" onChange={(v) => set_keyword(v)} value={_keyword} />
+                                    <Input name="description" onChange={(v) => set_description(v)} value={_description} />
+
+                                </div>
+                                : null}
                         </div >
                         <div className="flex h-12">
                             <Button name={slug === "news" ? "create" : "save"} onClick={() => slug !== "news" ? updateItem(archive, _id, body) : createItem && createItem(archive, body)} sx="!m-0 !m-auto !w-24 !h-6  !text-sm" />
